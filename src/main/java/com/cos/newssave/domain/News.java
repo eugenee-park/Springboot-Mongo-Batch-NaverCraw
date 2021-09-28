@@ -10,11 +10,21 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Data
-@Document(collection = "news")
+@Document(collection = "naver_news") //컬렉션 이름 변경
 public class News {
 	@Id
 	private String _id; 
 	
-	private String title;
-	private String time;
+	private String title;        // 뉴스제목
+	private String createdAt;    // 뉴스발행일 
+	private String company;      //신문사명
+	
 }
+
+
+
+
+
+
+
+

@@ -22,10 +22,18 @@ public class NewsBatch {
 	//@Scheduled(cron = "* 2 * * * *", zone = "Asia/Seoul")
 	@Scheduled(fixedDelay=1000*60*1)
 	public void newsCrawAndSave() {
-		List<News> newsList =  naverCraw.collect2();
+		List<News> newsList =  naverCraw.collect5();
 		newsRepository.saveAll(newsList);
 	}
 }
+
+
+
+
+
+
+
+
 
 
 

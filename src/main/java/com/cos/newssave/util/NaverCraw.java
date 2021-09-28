@@ -16,28 +16,32 @@ public class NaverCraw {
 
 	int aidNum = 1;
 	
-	public List<News> collect2(){
+	public List<News> collect5(){
 		RestTemplate rt = new RestTemplate();
 		List<News> newsList = new ArrayList<>();
 		
-		for (int i = 1; i < 3; i++) {
+		for (int i = 1; i < 6; i++) {
 			String aid = String.format("%010d", aidNum);
-			String url = "https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=100&oid=003&aid="+aid;
+			String url = "https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=102&oid=022&aid="+aid;
 			String html = rt.getForObject(url, String.class);
 
 			Document doc = Jsoup.parse(html);
 
 			Element titleElement = doc.selectFirst("#articleTitle");
-			Element timeElement = doc.selectFirst(".t11");
+			Element createdAtElement = doc.selectFirst(".t11");
+			Element companyElement = doc.selectFirst(".c_text"); // alt 속성값 가져오기 실패염...  
+			
 			String title = titleElement.text();
-			String time = timeElement.text();
+			String createdAt = createdAtElement.text();
+			String company = companyElement.text();
 			
 			//System.out.println(title);
-			//System.out.println(time);
+			//System.out.println(company);
 			
 			News news = News.builder()
 					.title(title)
-					.time(time)
+					.createdAt(createdAt)
+					.company(company)
 					.build();
 			
 			newsList.add(news);
@@ -47,3 +51,11 @@ public class NaverCraw {
 		return newsList;
 	}
 }
+
+
+
+
+
+
+
+
